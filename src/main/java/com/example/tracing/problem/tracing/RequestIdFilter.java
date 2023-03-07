@@ -3,8 +3,6 @@ package com.example.tracing.problem.tracing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -15,7 +13,7 @@ import reactor.util.context.Context;
 
 import java.util.function.Consumer;
 
-@Configuration
+@Component
 public class RequestIdFilter implements WebFilter {
 
     private Logger LOG = LoggerFactory.getLogger(RequestIdFilter.class);
