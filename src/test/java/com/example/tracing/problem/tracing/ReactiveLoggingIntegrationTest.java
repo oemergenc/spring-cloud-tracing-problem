@@ -1,5 +1,6 @@
 package com.example.tracing.problem.tracing;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -26,6 +28,13 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 class ReactiveLoggingIntegrationTest {
     @Autowired
     WebTestClient client;
+
+    @BeforeEach
+    public void setUp() {
+        client = client.mutate()
+                .responseTimeout(Duration.ofMillis(60000))
+                .build();
+    }
 
     @Test
     void app_starts_logging_application_log_as_json(CapturedOutput capturedOutput) {
