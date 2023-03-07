@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: spring-tracing-problem
+  main:
+    banner-mode: off
+
+logging:
+  config: "classpath:logback-spring.xml"

@@ -1,0 +1,27 @@
+<configuration>
+    <springProfile name="!ffp-logging-localdev-config">
+
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="com.google.cloud.spring.logging.StackdriverJsonLayout">
+                    <includeTraceId>true</includeTraceId>
+                    <includeContextName>false</includeContextName>
+                    <includeMessage>false</includeMessage>
+                    <includeFormattedMessage>true</includeFormattedMessage>
+                    <includeException>true</includeException>
+                    <includeExceptionInMessage>false</includeExceptionInMessage>
+                    <customJson>{ "log_type": "application" }</customJson>
+                </layout>
+            </encoder>
+        </appender>
+
+    </springProfile>
+
+    <springProfile name="ffp-logging-localdev-config">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    </springProfile>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
