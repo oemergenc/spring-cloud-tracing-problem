@@ -47,7 +47,7 @@ class ReactiveLoggingIntegrationTest {
                                         .node("log_type")
                                         .isEqualTo("application")
                                         .node("message")
-                                        .isEqualTo("Got echo request")
+                                        .isEqualTo("Some message with MDC set")
                                         .node("timestampSeconds")
                                         .isPresent()
                                         .node("timestampNanos")
@@ -55,6 +55,9 @@ class ReactiveLoggingIntegrationTest {
                                         .node("thread")
                                         .isPresent()
                                         .node("logger")
+                                        .node("logging\\.googleapis\\.com/trace")
+                                        .isPresent()
+                                        .node("logging\\.googleapis\\.com/spanId")
                                         .isPresent());
     }
 
