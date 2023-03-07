@@ -47,7 +47,7 @@ class ReactiveLoggingIntegrationTest {
                                         .node("log_type")
                                         .isEqualTo("application")
                                         .node("message")
-                                        .isEqualTo("Some message with MDC set")
+                                        .isEqualTo("Webfilter end")
                                         .node("timestampSeconds")
                                         .isPresent()
                                         .node("timestampNanos")
