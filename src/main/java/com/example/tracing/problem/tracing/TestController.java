@@ -33,6 +33,12 @@ public class TestController {
     return Mono.just(ResponseEntity.ok("hello"));
   }
 
+  @RequestMapping(method = GET, path = "/error")
+  public Mono<ResponseEntity<String>> error() {
+    LOG.info("Got error request");
+    return Mono.error(() -> new RuntimeException("Error"));
+  }
+
   @GetMapping("/forward")
   public Mono<String> forward(@RequestParam("target") String target)
       throws UnsupportedEncodingException {

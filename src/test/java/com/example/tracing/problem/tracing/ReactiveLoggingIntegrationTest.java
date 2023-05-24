@@ -70,6 +70,40 @@ class ReactiveLoggingIntegrationTest {
                                         .isPresent());
     }
 
+    @Test
+    void app_starts_logs_trace_info_in_error_case(CapturedOutput capturedOutput) {
+        String url = "/webflux/open/error";
+
+        final EntityExchangeResult<String> result =
+                client.get().uri(url).exchange().expectBody(String.class).returnResult();
+
+        final List<String> applicationLogLines = extractLogs(capturedOutput, this::isApplicationLog);
+
+        assertThat(result.getStatus().value()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        assertThat(applicationLogLines)
+                .isNotEmpty()
+                .anySatisfy(
+                        logLine ->
+                                assertThatJson(logLine)
+                                        .node("severity")
+                                        .isEqualTo("INFO")
+                                        .node("log_type")
+                                        .isEqualTo("application")
+                                        .node("message")
+                                        .isEqualTo("Got error request")
+                                        .node("timestampSeconds")
+                                        .isPresent()
+                                        .node("timestampNanos")
+                                        .isPresent()
+                                        .node("thread")
+                                        .isPresent()
+                                        .node("logger")
+                                        .node("logging\\.googleapis\\.com/trace")
+                                        .isPresent()
+                                        .node("logging\\.googleapis\\.com/spanId")
+                                        .isPresent());
+    }
+
     private boolean isApplicationLog(String logLine) {
         return logLine.contains("\"log_type\":\"application");
     }
