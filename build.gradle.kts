@@ -15,7 +15,7 @@ repositories {
 dependencies {
 	implementation(platform("org.springframework.boot:spring-boot-dependencies:2.7.9"))
 	implementation(platform("com.google.cloud:spring-cloud-gcp-dependencies:3.4.5"))
-	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2021.0.6"))
+	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2021.0.7"))
 
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.google.cloud:spring-cloud-gcp-logging")
