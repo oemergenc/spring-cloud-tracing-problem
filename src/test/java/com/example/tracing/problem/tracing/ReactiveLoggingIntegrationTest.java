@@ -71,7 +71,7 @@ class ReactiveLoggingIntegrationTest {
     }
 
     @Test
-    void app_starts_logs_trace_info_in_error_case(CapturedOutput capturedOutput) {
+    void app_logs_trace_info_in_error_case(CapturedOutput capturedOutput) {
         String url = "/webflux/open/error";
 
         final EntityExchangeResult<String> result =
@@ -86,22 +86,18 @@ class ReactiveLoggingIntegrationTest {
                         logLine ->
                                 assertThatJson(logLine)
                                         .node("severity")
-                                        .isEqualTo("INFO")
+                                        .isEqualTo("ERROR")
                                         .node("log_type")
                                         .isEqualTo("application")
-                                        .node("message")
-                                        .isEqualTo("Got error request")
-                                        .node("timestampSeconds")
-                                        .isPresent()
-                                        .node("timestampNanos")
-                                        .isPresent()
-                                        .node("thread")
-                                        .isPresent()
                                         .node("logger")
+                                        .isEqualTo("org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler")
+                                        .node("exception")
+                                        .isPresent()
                                         .node("logging\\.googleapis\\.com/trace")
                                         .isPresent()
                                         .node("logging\\.googleapis\\.com/spanId")
-                                        .isPresent());
+                                        .isPresent()
+                );
     }
 
     private boolean isApplicationLog(String logLine) {
